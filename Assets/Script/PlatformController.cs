@@ -39,8 +39,10 @@ public class PlatformController : MonoBehaviour
                     if (rb = hit.transform.GetComponent<Rigidbody>())
                     {
                         hit.transform.GetComponent<Animator>().SetTrigger("StartScale");
+                        hit.transform.GetChild(0).GetComponent<Animator>().SetTrigger("StartPopup");
                         //PushObject(rb);
                     }
+                    
                 }
             }
         }
