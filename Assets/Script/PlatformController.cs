@@ -20,26 +20,31 @@ public class PlatformController : MonoBehaviour
                 if (hit.transform && hit.transform.GetComponent<SquareController>())
                 {
                     //PrintName(hit.transform.gameObject);
-                    if (hit.transform.GetComponent<SquareController>()){
-                        if (hit.transform.GetComponent<SquareController>().selected)
-                            return;
-                        else
-                            hit.transform.GetComponent<SquareController>().selected = true;
-                    }
-
-                    if (firstPlayer){
-                        hit.transform.GetComponent<Renderer>().material.color = Color.blue;// Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-                        firstPlayer = false;
-                    } else{
-                        hit.transform.GetComponent<Renderer>().material.color = Color.green;// Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-                        firstPlayer = true;
-                    }
 
                     Rigidbody rb;
                     if (rb = hit.transform.GetComponent<Rigidbody>())
                     {
+                        if (hit.transform.GetComponent<SquareController>()){
+                            if (hit.transform.GetComponent<SquareController>().selected)
+                                return;
+                            else
+                                hit.transform.GetComponent<SquareController>().selected = true;
+                        }
+
                         hit.transform.GetComponent<Animator>().SetTrigger("StartScale");
-                        hit.transform.GetChild(0).GetComponent<Animator>().SetTrigger("StartPopup");
+
+                        if (firstPlayer){
+                            //hit.transform.GetComponent<Renderer>().material.color = Color.blue;// Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+                            //Get Cross
+                            hit.transform.GetChild(1).GetComponent<Animator>().SetTrigger("StartPopup");
+                            firstPlayer = false;
+                        } else{
+                            //hit.transform.GetComponent<Renderer>().material.color = Color.green;// Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+                            //Get Cylinder
+                            hit.transform.GetChild(0).GetComponent<Animator>().SetTrigger("StartPopup");
+                            firstPlayer = true;
+                        }
+
                         //PushObject(rb);
                     }
                     
