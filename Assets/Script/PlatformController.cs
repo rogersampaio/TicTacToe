@@ -12,6 +12,9 @@ public class PlatformController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
+            if (PauseMenu.GameIsPaused)
+                return;
+
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -24,7 +27,8 @@ public class PlatformController : MonoBehaviour
                     Rigidbody rb;
                     if (rb = hit.transform.GetComponent<Rigidbody>())
                     {
-                        if (hit.transform.GetComponent<SquareController>()){
+                        if (hit.transform.GetComponent<SquareController>())
+                        {
                             if (hit.transform.GetComponent<SquareController>().selected)
                                 return;
                             else
@@ -33,12 +37,15 @@ public class PlatformController : MonoBehaviour
 
                         hit.transform.GetComponent<Animator>().SetTrigger("StartScale");
 
-                        if (firstPlayer){
+                        if (firstPlayer)
+                        {
                             //hit.transform.GetComponent<Renderer>().material.color = Color.blue;// Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
                             //Get Cross
                             hit.transform.GetChild(1).GetComponent<Animator>().SetTrigger("StartPopup");
                             firstPlayer = false;
-                        } else{
+                        }
+                        else
+                        {
                             //hit.transform.GetComponent<Renderer>().material.color = Color.green;// Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
                             //Get Cylinder
                             hit.transform.GetChild(0).GetComponent<Animator>().SetTrigger("StartPopup");
@@ -47,7 +54,7 @@ public class PlatformController : MonoBehaviour
 
                         //PushObject(rb);
                     }
-                    
+
                 }
             }
         }
@@ -60,7 +67,7 @@ public class PlatformController : MonoBehaviour
 
     private void PushObject(Rigidbody rb)
     {
-        
+
         // Vector3 originalPosition = rb.position;
         // rb.useGravity = true;
         //ExecuteAfterTime(rb);
