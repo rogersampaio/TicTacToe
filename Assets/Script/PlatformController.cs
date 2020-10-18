@@ -2,9 +2,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlatformController : MonoBehaviour
 {
+    //1 - local, 2 - cpu, 3 - online
+    static public GameModes GameModeSelected = GameModes.Local;
+    public enum GameModes
+    {
+        Local,
+        CPU,
+        Online
+    }
+    private enum Item
+    {
+        X,
+        O
+    }
     public float force = 5;
     private bool firstPlayer = true;
     private GameObject A1_gameobject, A2_gameobject, A3_gameobject, B1_gameobject, B2_gameobject, B3_gameobject, C1_gameobject, C2_gameobject, C3_gameobject;
@@ -58,49 +72,49 @@ public class PlatformController : MonoBehaviour
     private void VerifyWinner()
     {
         //first row
-        if ((A1.selected_X && A2.selected_X && A3.selected_X) || (A1.selected_Y && A2.selected_Y && A3.selected_Y))
+        if ((A1.selected_X && A2.selected_X && A3.selected_X) || (A1.selected_O && A2.selected_O && A3.selected_O))
         {
             ActiveFlare(A1_gameobject); ActiveFlare(A2_gameobject); ActiveFlare(A3_gameobject);
             PushObject(B1_rigibody, B1_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(B3_rigibody, B3_renderer);
             PushObject(C1_rigibody, C1_renderer); PushObject(C2_rigibody, C2_renderer); PushObject(C3_rigibody, C3_renderer);
         }
         //second row
-        if ((B1.selected_X && B2.selected_X && B3.selected_X) || (B1.selected_Y && B2.selected_Y && B3.selected_Y))
+        if ((B1.selected_X && B2.selected_X && B3.selected_X) || (B1.selected_O && B2.selected_O && B3.selected_O))
         {
             ActiveFlare(B1_gameobject); ActiveFlare(B2_gameobject); ActiveFlare(B3_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(A2_rigibody, A2_renderer); PushObject(A3_rigibody, A3_renderer);
             PushObject(C1_rigibody, C1_renderer); PushObject(C2_rigibody, C2_renderer); PushObject(C3_rigibody, C3_renderer);
         }
         //third row
-        if ((C1.selected_X && C2.selected_X && C3.selected_X) || (C1.selected_Y && C2.selected_Y && C3.selected_Y))
+        if ((C1.selected_X && C2.selected_X && C3.selected_X) || (C1.selected_O && C2.selected_O && C3.selected_O))
         {
             ActiveFlare(C1_gameobject); ActiveFlare(C2_gameobject); ActiveFlare(C3_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(A2_rigibody, A2_renderer); PushObject(A3_rigibody, A3_renderer);
             PushObject(B1_rigibody, B1_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(B3_rigibody, B3_renderer);
         }
         //first line
-        if ((A1.selected_X && B1.selected_X && C1.selected_X) || (A1.selected_Y && B1.selected_Y && C1.selected_Y))
+        if ((A1.selected_X && B1.selected_X && C1.selected_X) || (A1.selected_O && B1.selected_O && C1.selected_O))
         {
             ActiveFlare(A1_gameobject); ActiveFlare(B1_gameobject); ActiveFlare(C1_gameobject);
             PushObject(A2_rigibody, A2_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(C2_rigibody, C2_renderer);
             PushObject(A3_rigibody, A3_renderer); PushObject(B3_rigibody, B3_renderer); PushObject(C3_rigibody, C3_renderer);
         }
         //second line
-        if ((A2.selected_X && B2.selected_X && C2.selected_X) || (A2.selected_Y && B2.selected_Y && C2.selected_Y))
+        if ((A2.selected_X && B2.selected_X && C2.selected_X) || (A2.selected_O && B2.selected_O && C2.selected_O))
         {
             ActiveFlare(A2_gameobject); ActiveFlare(B2_gameobject); ActiveFlare(C2_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(B1_rigibody, B1_renderer); PushObject(C1_rigibody, C1_renderer);
             PushObject(A3_rigibody, A3_renderer); PushObject(B3_rigibody, B3_renderer); PushObject(C3_rigibody, C3_renderer);
         }
         //third line
-        if ((A3.selected_X && B3.selected_X && C3.selected_X) || (A3.selected_Y && B3.selected_Y && C3.selected_Y))
+        if ((A3.selected_X && B3.selected_X && C3.selected_X) || (A3.selected_O && B3.selected_O && C3.selected_O))
         {
             ActiveFlare(A3_gameobject); ActiveFlare(B3_gameobject); ActiveFlare(C3_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(B1_rigibody, B1_renderer); PushObject(C1_rigibody, C1_renderer);
             PushObject(A2_rigibody, A2_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(C2_rigibody, C1_renderer);
         }
         //one diagonal
-        if ((A1.selected_X && B2.selected_X && C3.selected_X) || (A1.selected_Y && B2.selected_Y && C3.selected_Y))
+        if ((A1.selected_X && B2.selected_X && C3.selected_X) || (A1.selected_O && B2.selected_O && C3.selected_O))
         {
             ActiveFlare(A1_gameobject); ActiveFlare(B2_gameobject); ActiveFlare(C3_gameobject);
             PushObject(A2_rigibody, A2_renderer); PushObject(A3_rigibody, A3_renderer);
@@ -108,7 +122,7 @@ public class PlatformController : MonoBehaviour
             PushObject(C1_rigibody, C1_renderer); PushObject(C2_rigibody, C2_renderer);
         }
         //other diagonal
-        if ((A3.selected_X && B2.selected_X && C1.selected_X) || (A3.selected_Y && B2.selected_Y && C1.selected_Y))
+        if ((A3.selected_X && B2.selected_X && C1.selected_X) || (A3.selected_O && B2.selected_O && C1.selected_O))
         {
             ActiveFlare(A3_gameobject); ActiveFlare(B2_gameobject); ActiveFlare(C1_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(A2_rigibody, A2_renderer);
@@ -122,12 +136,29 @@ public class PlatformController : MonoBehaviour
         _gameobject.transform.Find("Flare").gameObject.SetActive(true);
     }
 
-    //First Item is always the X
+    private void SelectItem(GameObject _gameobject, Item item)
+    {
+        _gameobject.transform.GetComponent<Animator>().SetTrigger("StartScale");
+        if (item == Item.O)
+        {
+            _gameobject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("StartPopup");
+            _gameobject.transform.GetComponent<SquareController>().selected_O = true;
+        }
+        else
+        {
+            _gameobject.transform.GetChild(1).GetComponent<Animator>().SetTrigger("StartPopup");
+            _gameobject.transform.GetComponent<SquareController>().selected_X = true;
+        }
+    }
+
     private void SelectItem()
     {
         if (Input.GetMouseButtonDown(0))
         {
             if (PauseMenu.GameIsPaused)
+                return;
+
+            if (GameModeSelected == GameModes.CPU && !firstPlayer)
                 return;
 
             RaycastHit hit;
@@ -137,34 +168,25 @@ public class PlatformController : MonoBehaviour
             {
                 if (hit.transform && hit.transform.GetComponent<SquareController>())
                 {
-                    //PrintName(hit.transform.gameObject);
-
                     Rigidbody rb;
                     if (rb = hit.transform.GetComponent<Rigidbody>())
                     {
                         //Avoid selection
-                        if (hit.transform.GetComponent<SquareController>().selected_X || hit.transform.GetComponent<SquareController>().selected_Y)
+                        if (hit.transform.GetComponent<SquareController>().selected_X || hit.transform.GetComponent<SquareController>().selected_O)
                             return;
                         if (rb.position.y < 0)
                             return;
-                        //Avoid selection
-
-                        hit.transform.GetComponent<Animator>().SetTrigger("StartScale");
 
                         if (firstPlayer)
                         {
-                            //hit.transform.GetComponent<Renderer>().material.color = Color.blue;// Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-                            //Get Cross
-                            hit.transform.GetChild(1).GetComponent<Animator>().SetTrigger("StartPopup");
-                            hit.transform.GetComponent<SquareController>().selected_X = true;
+                            SelectItem(hit.transform.gameObject, Item.X);
                             firstPlayer = false;
+                            if (GameModeSelected == GameModes.CPU)
+                                CPUPlayHard();
                         }
                         else
                         {
-                            //hit.transform.GetComponent<Renderer>().material.color = Color.green;// Color.HSVToRGB(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
-                            //Get Cylinder
-                            hit.transform.GetChild(0).GetComponent<Animator>().SetTrigger("StartPopup");
-                            hit.transform.GetComponent<SquareController>().selected_Y = true;
+                            SelectItem(hit.transform.gameObject, Item.O);
                             firstPlayer = true;
                         }
                     }
@@ -172,6 +194,179 @@ public class PlatformController : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void CPUPlayHard()
+    {
+        //if everything is selected, reload scene
+        if ((A1.selected_X || A1.selected_O) && (A2.selected_X || A2.selected_O) && (A3.selected_X || A3.selected_O)
+            && (B1.selected_X || B1.selected_O) && (B2.selected_X || B2.selected_O) && (B3.selected_X || B3.selected_O)
+            && (C1.selected_X || C1.selected_O) && (C2.selected_X || C2.selected_O) && (C3.selected_X || C3.selected_O))
+            SceneManager.LoadScene(1);
+
+        //attack lines
+        else if ((A2.selected_O && A3.selected_O && !A1.selected_X && !A1.selected_O))
+            SelectItem(A1_gameobject, Item.O);
+        else if ((A1.selected_O && A3.selected_O && !A2.selected_X && !A2.selected_O))
+            SelectItem(A2_gameobject, Item.O);
+        else if ((A1.selected_O && A2.selected_O && !A3.selected_X && !A2.selected_O))
+            SelectItem(A3_gameobject, Item.O);
+
+        else if ((B2.selected_O && B3.selected_O && !B1.selected_X && !B1.selected_O))
+            SelectItem(B1_gameobject, Item.O);
+        else if ((B1.selected_O && B3.selected_O && !B2.selected_X && !B2.selected_O))
+            SelectItem(B2_gameobject, Item.O);
+        else if ((B1.selected_O && B2.selected_O && !B3.selected_X && !B3.selected_O))
+            SelectItem(B3_gameobject, Item.O);
+
+        else if ((C2.selected_O && C3.selected_O && !C1.selected_X && !C1.selected_O))
+            SelectItem(C1_gameobject, Item.O);
+        else if ((C1.selected_O && C3.selected_O && !C2.selected_X && !C2.selected_O))
+            SelectItem(C2_gameobject, Item.O);
+        else if ((C1.selected_O && C2.selected_O && !C3.selected_X && !C3.selected_O))
+            SelectItem(C3_gameobject, Item.O);
+
+        //attack columns
+        else if ((B1.selected_O && C1.selected_O && !A1.selected_X && !A1.selected_O))
+            SelectItem(A1_gameobject, Item.O);
+        else if ((A1.selected_O && C1.selected_O && !B1.selected_X && !B1.selected_O))
+            SelectItem(B1_gameobject, Item.O);
+        else if ((A1.selected_O && B1.selected_O && !C1.selected_X && !C1.selected_O))
+            SelectItem(C1_gameobject, Item.O);
+
+        else if ((B2.selected_O && C2.selected_O && !A2.selected_X && !A2.selected_O))
+            SelectItem(A2_gameobject, Item.O);
+        else if ((A2.selected_O && C2.selected_O && !B2.selected_X && !B2.selected_O))
+            SelectItem(B2_gameobject, Item.O);
+        else if ((A2.selected_O && B2.selected_O && !C2.selected_X && !C2.selected_O))
+            SelectItem(C2_gameobject, Item.O);
+
+        else if ((B3.selected_O && C3.selected_O && !A3.selected_X && !A3.selected_O))
+            SelectItem(A3_gameobject, Item.O);
+        else if ((A3.selected_O && C3.selected_O && !B3.selected_X && !B3.selected_O))
+            SelectItem(B3_gameobject, Item.O);
+        else if ((A3.selected_O && B3.selected_O && !C3.selected_X && !C3.selected_O))
+            SelectItem(C3_gameobject, Item.O);
+
+        //atack diagonal
+        else if ((B2.selected_O && C3.selected_O && !A1.selected_X && !A1.selected_O))
+            SelectItem(A1_gameobject, Item.O);
+        else if ((A1.selected_O && C3.selected_O && !B2.selected_X && !B2.selected_O))
+            SelectItem(B2_gameobject, Item.O);
+        else if ((A1.selected_O && B2.selected_O && !C3.selected_X && !C3.selected_O))
+            SelectItem(C3_gameobject, Item.O);
+
+        else if ((B2.selected_O && C1.selected_O && !A3.selected_X && !A3.selected_O))
+            SelectItem(A3_gameobject, Item.O);
+        else if ((A3.selected_O && C1.selected_O && !B2.selected_X && !B2.selected_O))
+            SelectItem(B2_gameobject, Item.O);
+        else if ((A3.selected_O && B2.selected_O && !C1.selected_X && !C1.selected_O))
+            SelectItem(C1_gameobject, Item.O);
+
+        //defense lines
+        else if ((A2.selected_X && A3.selected_X && !A1.selected_O && !A1.selected_X))
+            SelectItem(A1_gameobject, Item.O);
+        else if ((A1.selected_X && A3.selected_X && !A2.selected_O && !A2.selected_X))
+            SelectItem(A2_gameobject, Item.O);
+        else if ((A1.selected_X && A2.selected_X && !A3.selected_O && !A2.selected_X))
+            SelectItem(A3_gameobject, Item.O);
+
+        else if ((B2.selected_X && B3.selected_X && !B1.selected_O && !B1.selected_X))
+            SelectItem(B1_gameobject, Item.O);
+        else if ((B1.selected_X && B3.selected_X && !B2.selected_O && !B2.selected_X))
+            SelectItem(B2_gameobject, Item.O);
+        else if ((B1.selected_X && B2.selected_X && !B3.selected_O && !B3.selected_X))
+            SelectItem(B3_gameobject, Item.O);
+
+        else if ((C2.selected_X && C3.selected_X && !C1.selected_O && !C1.selected_X))
+            SelectItem(C1_gameobject, Item.O);
+        else if ((C1.selected_X && C3.selected_X && !C2.selected_O && !C2.selected_X))
+            SelectItem(C2_gameobject, Item.O);
+        else if ((C1.selected_X && C2.selected_X && !C3.selected_O && !C3.selected_X))
+            SelectItem(C3_gameobject, Item.O);
+
+        //defense columns
+        else if ((B1.selected_X && C1.selected_X && !A1.selected_O && !A1.selected_X))
+            SelectItem(A1_gameobject, Item.O);
+        else if ((A1.selected_X && C1.selected_X && !B1.selected_O && !B1.selected_X))
+            SelectItem(B1_gameobject, Item.O);
+        else if ((A1.selected_X && B1.selected_X && !C1.selected_O && !C1.selected_X))
+            SelectItem(C1_gameobject, Item.O);
+
+        else if ((B2.selected_X && C2.selected_X && !A2.selected_O && !A2.selected_X))
+            SelectItem(A2_gameobject, Item.O);
+        else if ((A2.selected_X && C2.selected_X && !B2.selected_O && !B2.selected_X))
+            SelectItem(B2_gameobject, Item.O);
+        else if ((A2.selected_X && B2.selected_X && !C2.selected_O && !C2.selected_X))
+            SelectItem(C2_gameobject, Item.O);
+
+        else if ((B3.selected_X && C3.selected_X && !A3.selected_O && !A3.selected_X))
+            SelectItem(A3_gameobject, Item.O);
+        else if ((A3.selected_X && C3.selected_X && !B3.selected_O && !B3.selected_X))
+            SelectItem(B3_gameobject, Item.O);
+        else if ((A3.selected_X && B3.selected_X && !C3.selected_O && !C3.selected_X))
+            SelectItem(C3_gameobject, Item.O);
+
+        //defense diagonal
+        else if ((B2.selected_X && C3.selected_X && !A1.selected_O && !A1.selected_X))
+            SelectItem(A1_gameobject, Item.O);
+        else if ((A1.selected_X && C3.selected_X && !B2.selected_O && !B2.selected_X))
+            SelectItem(B2_gameobject, Item.O);
+        else if ((A1.selected_X && B2.selected_X && !C3.selected_O && !C3.selected_X))
+            SelectItem(C3_gameobject, Item.O);
+
+        else if ((B2.selected_X && C1.selected_X && !A3.selected_O && !A3.selected_X))
+            SelectItem(A3_gameobject, Item.O);
+        else if ((A3.selected_X && C1.selected_X && !B2.selected_O && !B2.selected_X))
+            SelectItem(B2_gameobject, Item.O);
+        else if ((A3.selected_X && B2.selected_X && !C1.selected_O && !C1.selected_X))
+            SelectItem(C1_gameobject, Item.O);
+
+        
+
+        //first defense (middle)
+        else if ((!B2.selected_X && !B2.selected_O))
+            SelectItem(B2_gameobject, Item.O);
+
+        //if player started in the middle, select one of the borders
+        else if ((!A1.selected_X && !A1.selected_O && B2.selected_X))
+            SelectItem(A1_gameobject, Item.O);
+        else if ((!A3.selected_X && !A3.selected_O && B2.selected_X))
+            SelectItem(A3_gameobject, Item.O);
+        else if ((!C1.selected_X && !C1.selected_O && B2.selected_X))
+            SelectItem(C1_gameobject, Item.O);
+        else if ((!C3.selected_X && !C3.selected_O && B2.selected_X))
+            SelectItem(C3_gameobject, Item.O);
+
+        //select any of no border if the middle is of the CPU
+        else if ((!A2.selected_X && !A2.selected_O && B2.selected_O))
+            SelectItem(A2_gameobject, Item.O);
+        else if ((!B1.selected_X && !B1.selected_O && B2.selected_O))
+            SelectItem(B1_gameobject, Item.O);
+        else if ((!B3.selected_X && !B3.selected_O && B2.selected_O))
+            SelectItem(B3_gameobject, Item.O);
+        else if ((!C2.selected_X && !C2.selected_O && B2.selected_O))
+            SelectItem(C2_gameobject, Item.O);
+
+        //play anywhere (deu velha)
+        else if ((!A2.selected_X && !A2.selected_O))
+            SelectItem(A2_gameobject, Item.O);
+        else if ((!B1.selected_X && !B1.selected_O))
+            SelectItem(B1_gameobject, Item.O);
+        else if ((!B3.selected_X && !B3.selected_O))
+            SelectItem(B3_gameobject, Item.O);
+        else if ((!C2.selected_X && !C2.selected_O))
+            SelectItem(C2_gameobject, Item.O);
+        else if ((!A1.selected_X && !A1.selected_O))
+            SelectItem(A1_gameobject, Item.O);
+        else if ((!A3.selected_X && !A3.selected_O))
+            SelectItem(A3_gameobject, Item.O);
+        else if ((!C1.selected_X && !C1.selected_O))
+            SelectItem(C1_gameobject, Item.O);
+        else if ((!C3.selected_X && !C3.selected_O))
+            SelectItem(C3_gameobject, Item.O);
+
+        firstPlayer = true;
     }
 
     private void PrintName(GameObject go)

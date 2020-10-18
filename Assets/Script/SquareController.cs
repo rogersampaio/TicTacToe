@@ -6,7 +6,7 @@ public class SquareController : MonoBehaviour
 {
 
     public bool selected_X = false;
-    public bool selected_Y = false;
+    public bool selected_O = false;
     // Start is called before the first frame update
     void Start()
     {
