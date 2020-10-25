@@ -209,7 +209,7 @@ public class PlatformController : MonoBehaviour
             SelectItem(A1_gameobject, Item.O);
         else if ((A1.selected_O && A3.selected_O && !A2.selected_X && !A2.selected_O))
             SelectItem(A2_gameobject, Item.O);
-        else if ((A1.selected_O && A2.selected_O && !A3.selected_X && !A2.selected_O))
+        else if ((A1.selected_O && A2.selected_O && !A3.selected_X && !A3.selected_O))
             SelectItem(A3_gameobject, Item.O);
 
         else if ((B2.selected_O && B3.selected_O && !B1.selected_X && !B1.selected_O))
