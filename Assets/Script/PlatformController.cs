@@ -67,6 +67,7 @@ public class PlatformController : MonoBehaviour
     {
         SelectItem();
         VerifyWinner();
+        VerifyDraw();
     }
 
     private void VerifyWinner()
@@ -128,6 +129,20 @@ public class PlatformController : MonoBehaviour
             PushObject(A1_rigibody, A1_renderer); PushObject(A2_rigibody, A2_renderer);
             PushObject(B1_rigibody, B1_renderer); PushObject(B3_rigibody, B3_renderer);
             PushObject(C2_rigibody, C2_renderer); PushObject(C3_rigibody, C3_renderer);
+        }
+    }
+
+    private void VerifyDraw()
+    {
+         if ((A1.selected_X || A1.selected_O) && (A2.selected_X || A2.selected_O) && (A3.selected_X || A3.selected_O) &&
+             (B1.selected_X || B1.selected_O) && (B2.selected_X || B2.selected_O) && (B3.selected_X || B3.selected_O) &&
+             (C1.selected_X || C1.selected_O) && (C2.selected_X || C2.selected_O) && (C3.selected_X || C3.selected_O))
+        {
+            PushObject(A1_rigibody, A1_renderer); PushObject(A2_rigibody, A2_renderer); PushObject(A3_rigibody, A3_renderer);
+            PushObject(B1_rigibody, B1_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(B3_rigibody, B3_renderer); 
+            PushObject(C1_rigibody, C1_renderer); PushObject(C2_rigibody, C2_renderer); PushObject(C3_rigibody, C3_renderer); 
+            //PauseMenu pauseMenu = new PauseMenu();
+            //pauseMenu.ShowDraw();
         }
     }
 
@@ -207,15 +222,8 @@ public class PlatformController : MonoBehaviour
 
     private void CPUPlayHard()
     {
-        //TODO: if everything is selected, show DRAW message
-        //Now: if everything is selected, reload scene
-        if ((A1.selected_X || A1.selected_O) && (A2.selected_X || A2.selected_O) && (A3.selected_X || A3.selected_O)
-            && (B1.selected_X || B1.selected_O) && (B2.selected_X || B2.selected_O) && (B3.selected_X || B3.selected_O)
-            && (C1.selected_X || C1.selected_O) && (C2.selected_X || C2.selected_O) && (C3.selected_X || C3.selected_O))
-            SceneManager.LoadScene(1);
-
         //attack lines
-        else if ((A2.selected_O && A3.selected_O && !A1.selected_X && !A1.selected_O))
+        if ((A2.selected_O && A3.selected_O && !A1.selected_X && !A1.selected_O))
             SelectItem(A1_gameobject, Item.O);
         else if ((A1.selected_O && A3.selected_O && !A2.selected_X && !A2.selected_O))
             SelectItem(A2_gameobject, Item.O);
@@ -331,8 +339,6 @@ public class PlatformController : MonoBehaviour
             SelectItem(B2_gameobject, Item.O);
         else if ((A3.selected_X && B2.selected_X && !C1.selected_O && !C1.selected_X))
             SelectItem(C1_gameobject, Item.O);
-
-
 
         //first defense (middle)
         else if ((!B2.selected_X && !B2.selected_O))

@@ -36,6 +36,14 @@ public class PauseMenu : MonoBehaviour
         GameIsPaused = true;
     }
 
+    public void ShowDraw()
+    {
+        //TODO: create draw menu
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        GameIsPaused = true;
+    }
+
     public void LoadMenu()
     {
         Resume();
