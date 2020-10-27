@@ -278,7 +278,7 @@ public class PlatformController : MonoBehaviour
             SelectItem(A1_gameobject, Item.O);
         else if ((A1.selected_X && A3.selected_X && !A2.selected_O && !A2.selected_X))
             SelectItem(A2_gameobject, Item.O);
-        else if ((A1.selected_X && A2.selected_X && !A3.selected_O && !A2.selected_X))
+        else if ((A1.selected_X && A2.selected_X && !A3.selected_O && !A3.selected_X))
             SelectItem(A3_gameobject, Item.O);
 
         else if ((B2.selected_X && B3.selected_X && !B1.selected_O && !B1.selected_X))
@@ -348,15 +348,35 @@ public class PlatformController : MonoBehaviour
         else if ((!C3.selected_X && !C3.selected_O && B2.selected_X))
             SelectItem(C3_gameobject, Item.O);
 
-        //select any of no border if the middle is of the CPU
-        else if ((!A2.selected_X && !A2.selected_O && B2.selected_O))
+        //select any of no border (that can win) if the middle is of the CPU
+        else if ((!A2.selected_X && !A2.selected_O && !C2.selected_X && B2.selected_O))
             SelectItem(A2_gameobject, Item.O);
-        else if ((!B1.selected_X && !B1.selected_O && B2.selected_O))
+        else if ((!B1.selected_X && !B1.selected_O && !B3.selected_X && B2.selected_O))
             SelectItem(B1_gameobject, Item.O);
-        else if ((!B3.selected_X && !B3.selected_O && B2.selected_O))
+        else if ((!B3.selected_X && !B3.selected_O && !B1.selected_X && B2.selected_O))
             SelectItem(B3_gameobject, Item.O);
-        else if ((!C2.selected_X && !C2.selected_O && B2.selected_O))
+        else if ((!C2.selected_X && !C2.selected_O && !A2.selected_X &&B2.selected_O))
             SelectItem(C2_gameobject, Item.O);
+
+        //select any border (that can win and between X) if the middle is of the CPU
+        else if (!A1.selected_X && !A1.selected_O && !C3.selected_X && B2.selected_O && B1.selected_X && A2.selected_X)
+            SelectItem(A1_gameobject, Item.O);
+        else if (!A3.selected_X && !A3.selected_O && !C1.selected_X && B2.selected_O && A2.selected_X && B3.selected_X)
+            SelectItem(A3_gameobject, Item.O);
+        else if (!C1.selected_X && !C1.selected_O && !A3.selected_X && B2.selected_O && B1.selected_X && C2.selected_X)
+            SelectItem(C1_gameobject, Item.O);
+        else if (!C3.selected_X && !C3.selected_O && !A1.selected_X &&B2.selected_O && C2.selected_X && B3.selected_X)
+            SelectItem(C3_gameobject, Item.O);
+
+        //select any border (that can win and not near O) if the middle is of the CPU
+        else if (!A1.selected_X && !A1.selected_O && !C3.selected_X && B2.selected_O && !B1.selected_O && !A2.selected_O)
+            SelectItem(A1_gameobject, Item.O);
+        else if (!A3.selected_X && !A3.selected_O && !C1.selected_X && B2.selected_O && !A2.selected_O && !B3.selected_O)
+            SelectItem(A3_gameobject, Item.O);
+        else if (!C1.selected_X && !C1.selected_O && !A3.selected_X && B2.selected_O && !B1.selected_O && !C2.selected_O)
+            SelectItem(C1_gameobject, Item.O);
+        else if (!C3.selected_X && !C3.selected_O && !A1.selected_X &&B2.selected_O && !C2.selected_O && !B3.selected_O)
+            SelectItem(C3_gameobject, Item.O);
 
         //play anywhere (deu velha)
         else if ((!A2.selected_X && !A2.selected_O))
