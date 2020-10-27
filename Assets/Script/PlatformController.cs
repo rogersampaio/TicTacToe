@@ -111,7 +111,7 @@ public class PlatformController : MonoBehaviour
         {
             ActiveFlare(A3_gameobject); ActiveFlare(B3_gameobject); ActiveFlare(C3_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(B1_rigibody, B1_renderer); PushObject(C1_rigibody, C1_renderer);
-            PushObject(A2_rigibody, A2_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(C2_rigibody, C1_renderer);
+            PushObject(A2_rigibody, A2_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(C2_rigibody, C2_renderer);
         }
         //one diagonal
         if ((A1.selected_X && B2.selected_X && C3.selected_X) || (A1.selected_O && B2.selected_O && C3.selected_O))
@@ -182,7 +182,10 @@ public class PlatformController : MonoBehaviour
                             SelectItem(hit.transform.gameObject, Item.X);
                             firstPlayer = false;
                             if (GameModeSelected == GameModes.CPU)
-                                CPUPlayHard();
+                            {
+                                StartCoroutine(ExecuteCPUPlayAfterTime(0.4f));
+                                //CPUPlayHard();
+                            }
                         }
                         else
                         {
@@ -196,9 +199,16 @@ public class PlatformController : MonoBehaviour
         }
     }
 
+    IEnumerator ExecuteCPUPlayAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        CPUPlayHard();
+    }
+
     private void CPUPlayHard()
     {
-        //if everything is selected, reload scene
+        //TODO: if everything is selected, show DRAW message
+        //Now: if everything is selected, reload scene
         if ((A1.selected_X || A1.selected_O) && (A2.selected_X || A2.selected_O) && (A3.selected_X || A3.selected_O)
             && (B1.selected_X || B1.selected_O) && (B2.selected_X || B2.selected_O) && (B3.selected_X || B3.selected_O)
             && (C1.selected_X || C1.selected_O) && (C2.selected_X || C2.selected_O) && (C3.selected_X || C3.selected_O))
@@ -322,7 +332,7 @@ public class PlatformController : MonoBehaviour
         else if ((A3.selected_X && B2.selected_X && !C1.selected_O && !C1.selected_X))
             SelectItem(C1_gameobject, Item.O);
 
-        
+
 
         //first defense (middle)
         else if ((!B2.selected_X && !B2.selected_O))
