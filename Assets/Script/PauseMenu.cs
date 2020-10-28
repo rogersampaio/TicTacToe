@@ -7,6 +7,9 @@ public class PauseMenu : MonoBehaviour
 {
     public static bool GameIsPaused = false;
     public GameObject pauseMenuUI;
+    public GameObject drawMenuUI;
+    public GameObject winnerOMenu;
+    public GameObject winnerXMenu;
     // Update is called once per frame
     void Update()
     {
@@ -38,10 +41,17 @@ public class PauseMenu : MonoBehaviour
 
     public void ShowDraw()
     {
-        //TODO: create draw menu
-        pauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
-        GameIsPaused = true;
+        drawMenuUI.SetActive(true);
+    }
+
+    public void ShowWinnerXMenu()
+    {
+        winnerXMenu.SetActive(true);
+    }
+
+    public void ShowWinnerOMenu()
+    {
+        winnerOMenu.SetActive(true);
     }
 
     public void LoadMenu()

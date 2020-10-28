@@ -19,6 +19,7 @@ public class PlatformController : MonoBehaviour
         X,
         O
     }
+    public GameObject canvasPauseMenu;
     public float force = 5;
     private bool firstPlayer = true;
     private GameObject A1_gameobject, A2_gameobject, A3_gameobject, B1_gameobject, B2_gameobject, B3_gameobject, C1_gameobject, C2_gameobject, C3_gameobject;
@@ -78,6 +79,7 @@ public class PlatformController : MonoBehaviour
             ActiveFlare(A1_gameobject); ActiveFlare(A2_gameobject); ActiveFlare(A3_gameobject);
             PushObject(B1_rigibody, B1_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(B3_rigibody, B3_renderer);
             PushObject(C1_rigibody, C1_renderer); PushObject(C2_rigibody, C2_renderer); PushObject(C3_rigibody, C3_renderer);
+            if (A1.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
         }
         //second row
         if ((B1.selected_X && B2.selected_X && B3.selected_X) || (B1.selected_O && B2.selected_O && B3.selected_O))
@@ -85,6 +87,7 @@ public class PlatformController : MonoBehaviour
             ActiveFlare(B1_gameobject); ActiveFlare(B2_gameobject); ActiveFlare(B3_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(A2_rigibody, A2_renderer); PushObject(A3_rigibody, A3_renderer);
             PushObject(C1_rigibody, C1_renderer); PushObject(C2_rigibody, C2_renderer); PushObject(C3_rigibody, C3_renderer);
+            if (B1.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
         }
         //third row
         if ((C1.selected_X && C2.selected_X && C3.selected_X) || (C1.selected_O && C2.selected_O && C3.selected_O))
@@ -92,6 +95,7 @@ public class PlatformController : MonoBehaviour
             ActiveFlare(C1_gameobject); ActiveFlare(C2_gameobject); ActiveFlare(C3_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(A2_rigibody, A2_renderer); PushObject(A3_rigibody, A3_renderer);
             PushObject(B1_rigibody, B1_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(B3_rigibody, B3_renderer);
+            if (C1.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
         }
         //first line
         if ((A1.selected_X && B1.selected_X && C1.selected_X) || (A1.selected_O && B1.selected_O && C1.selected_O))
@@ -99,6 +103,7 @@ public class PlatformController : MonoBehaviour
             ActiveFlare(A1_gameobject); ActiveFlare(B1_gameobject); ActiveFlare(C1_gameobject);
             PushObject(A2_rigibody, A2_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(C2_rigibody, C2_renderer);
             PushObject(A3_rigibody, A3_renderer); PushObject(B3_rigibody, B3_renderer); PushObject(C3_rigibody, C3_renderer);
+            if (A1.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
         }
         //second line
         if ((A2.selected_X && B2.selected_X && C2.selected_X) || (A2.selected_O && B2.selected_O && C2.selected_O))
@@ -106,6 +111,7 @@ public class PlatformController : MonoBehaviour
             ActiveFlare(A2_gameobject); ActiveFlare(B2_gameobject); ActiveFlare(C2_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(B1_rigibody, B1_renderer); PushObject(C1_rigibody, C1_renderer);
             PushObject(A3_rigibody, A3_renderer); PushObject(B3_rigibody, B3_renderer); PushObject(C3_rigibody, C3_renderer);
+            if (A2.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
         }
         //third line
         if ((A3.selected_X && B3.selected_X && C3.selected_X) || (A3.selected_O && B3.selected_O && C3.selected_O))
@@ -113,6 +119,7 @@ public class PlatformController : MonoBehaviour
             ActiveFlare(A3_gameobject); ActiveFlare(B3_gameobject); ActiveFlare(C3_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(B1_rigibody, B1_renderer); PushObject(C1_rigibody, C1_renderer);
             PushObject(A2_rigibody, A2_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(C2_rigibody, C2_renderer);
+            if (A3.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
         }
         //one diagonal
         if ((A1.selected_X && B2.selected_X && C3.selected_X) || (A1.selected_O && B2.selected_O && C3.selected_O))
@@ -121,6 +128,7 @@ public class PlatformController : MonoBehaviour
             PushObject(A2_rigibody, A2_renderer); PushObject(A3_rigibody, A3_renderer);
             PushObject(B1_rigibody, B1_renderer); PushObject(B3_rigibody, B3_renderer);
             PushObject(C1_rigibody, C1_renderer); PushObject(C2_rigibody, C2_renderer);
+            if (A1.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
         }
         //other diagonal
         if ((A3.selected_X && B2.selected_X && C1.selected_X) || (A3.selected_O && B2.selected_O && C1.selected_O))
@@ -129,20 +137,49 @@ public class PlatformController : MonoBehaviour
             PushObject(A1_rigibody, A1_renderer); PushObject(A2_rigibody, A2_renderer);
             PushObject(B1_rigibody, B1_renderer); PushObject(B3_rigibody, B3_renderer);
             PushObject(C2_rigibody, C2_renderer); PushObject(C3_rigibody, C3_renderer);
+            if (A3.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
         }
+    }
+
+    private void ShowWinnerXMenu()
+    {
+        StartCoroutine(ShowWinnerXMenuAfterTime(2f));
+    }
+
+    private void ShowWinnerOMenu()
+    {
+        StartCoroutine(ShowWinnerOMenuAfterTime(2f));
+    }
+
+    IEnumerator ShowWinnerXMenuAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        PauseMenu pauseMenu = canvasPauseMenu.GetComponent<PauseMenu>();
+        pauseMenu.ShowWinnerXMenu();
+    }
+
+    IEnumerator ShowWinnerOMenuAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        PauseMenu pauseMenu = canvasPauseMenu.GetComponent<PauseMenu>();
+        pauseMenu.ShowWinnerOMenu();
     }
 
     private void VerifyDraw()
     {
-         if ((A1.selected_X || A1.selected_O) && (A2.selected_X || A2.selected_O) && (A3.selected_X || A3.selected_O) &&
-             (B1.selected_X || B1.selected_O) && (B2.selected_X || B2.selected_O) && (B3.selected_X || B3.selected_O) &&
-             (C1.selected_X || C1.selected_O) && (C2.selected_X || C2.selected_O) && (C3.selected_X || C3.selected_O))
+        if ((A1.selected_X || A1.selected_O) && (A2.selected_X || A2.selected_O) && (A3.selected_X || A3.selected_O) &&
+            (B1.selected_X || B1.selected_O) && (B2.selected_X || B2.selected_O) && (B3.selected_X || B3.selected_O) &&
+            (C1.selected_X || C1.selected_O) && (C2.selected_X || C2.selected_O) && (C3.selected_X || C3.selected_O))
         {
             PushObject(A1_rigibody, A1_renderer); PushObject(A2_rigibody, A2_renderer); PushObject(A3_rigibody, A3_renderer);
-            PushObject(B1_rigibody, B1_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(B3_rigibody, B3_renderer); 
-            PushObject(C1_rigibody, C1_renderer); PushObject(C2_rigibody, C2_renderer); PushObject(C3_rigibody, C3_renderer); 
-            //PauseMenu pauseMenu = new PauseMenu();
-            //pauseMenu.ShowDraw();
+            PushObject(B1_rigibody, B1_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(B3_rigibody, B3_renderer);
+            PushObject(C1_rigibody, C1_renderer); PushObject(C2_rigibody, C2_renderer); PushObject(C3_rigibody, C3_renderer);
+
+            if (canvasPauseMenu != null)
+            {
+                PauseMenu pauseMenu = canvasPauseMenu.GetComponent<PauseMenu>();
+                pauseMenu.ShowDraw();
+            }
         }
     }
 
@@ -199,7 +236,6 @@ public class PlatformController : MonoBehaviour
                             if (GameModeSelected == GameModes.CPU)
                             {
                                 StartCoroutine(ExecuteCPUPlayAfterTime(0.4f));
-                                //CPUPlayHard();
                             }
                         }
                         else
@@ -361,7 +397,7 @@ public class PlatformController : MonoBehaviour
             SelectItem(B1_gameobject, Item.O);
         else if ((!B3.selected_X && !B3.selected_O && !B1.selected_X && B2.selected_O))
             SelectItem(B3_gameobject, Item.O);
-        else if ((!C2.selected_X && !C2.selected_O && !A2.selected_X &&B2.selected_O))
+        else if ((!C2.selected_X && !C2.selected_O && !A2.selected_X && B2.selected_O))
             SelectItem(C2_gameobject, Item.O);
 
         //select any border (that can win and between X) if the middle is of the CPU
@@ -371,7 +407,7 @@ public class PlatformController : MonoBehaviour
             SelectItem(A3_gameobject, Item.O);
         else if (!C1.selected_X && !C1.selected_O && !A3.selected_X && B2.selected_O && B1.selected_X && C2.selected_X)
             SelectItem(C1_gameobject, Item.O);
-        else if (!C3.selected_X && !C3.selected_O && !A1.selected_X &&B2.selected_O && C2.selected_X && B3.selected_X)
+        else if (!C3.selected_X && !C3.selected_O && !A1.selected_X && B2.selected_O && C2.selected_X && B3.selected_X)
             SelectItem(C3_gameobject, Item.O);
 
         //select any border (that can win and not near O) if the middle is of the CPU
@@ -381,7 +417,7 @@ public class PlatformController : MonoBehaviour
             SelectItem(A3_gameobject, Item.O);
         else if (!C1.selected_X && !C1.selected_O && !A3.selected_X && B2.selected_O && !B1.selected_O && !C2.selected_O)
             SelectItem(C1_gameobject, Item.O);
-        else if (!C3.selected_X && !C3.selected_O && !A1.selected_X &&B2.selected_O && !C2.selected_O && !B3.selected_O)
+        else if (!C3.selected_X && !C3.selected_O && !A1.selected_X && B2.selected_O && !C2.selected_O && !B3.selected_O)
             SelectItem(C3_gameobject, Item.O);
 
         //play anywhere (deu velha)
