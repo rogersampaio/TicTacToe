@@ -194,11 +194,13 @@ public class PlatformController : MonoBehaviour
         if (item == Item.O)
         {
             _gameobject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("StartPopup");
+            _gameobject.transform.GetChild(0).GetComponent<AudioSource>().Play();
             _gameobject.transform.GetComponent<SquareController>().selected_O = true;
         }
         else
         {
             _gameobject.transform.GetChild(1).GetComponent<Animator>().SetTrigger("StartPopup");
+            _gameobject.transform.GetChild(1).GetComponent<AudioSource>().Play();
             _gameobject.transform.GetComponent<SquareController>().selected_X = true;
         }
     }
