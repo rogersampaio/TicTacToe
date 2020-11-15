@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -67,11 +67,12 @@ public class PlatformController : MonoBehaviour
     void Update()
     {
         SelectItem();
-        VerifyWinner();
-        VerifyDraw();
+        if (!VerifyWinner()){
+            VerifyDraw();
+        }
     }
 
-    private void VerifyWinner()
+    private bool VerifyWinner()
     {
         //first row
         if ((A1.selected_X && A2.selected_X && A3.selected_X) || (A1.selected_O && A2.selected_O && A3.selected_O))
@@ -79,7 +80,7 @@ public class PlatformController : MonoBehaviour
             ActiveFlare(A1_gameobject); ActiveFlare(A2_gameobject); ActiveFlare(A3_gameobject);
             PushObject(B1_rigibody, B1_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(B3_rigibody, B3_renderer);
             PushObject(C1_rigibody, C1_renderer); PushObject(C2_rigibody, C2_renderer); PushObject(C3_rigibody, C3_renderer);
-            if (A1.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
+            if (A1.selected_X) return ShowWinnerXMenu(); else return ShowWinnerOMenu();
         }
         //second row
         if ((B1.selected_X && B2.selected_X && B3.selected_X) || (B1.selected_O && B2.selected_O && B3.selected_O))
@@ -87,7 +88,7 @@ public class PlatformController : MonoBehaviour
             ActiveFlare(B1_gameobject); ActiveFlare(B2_gameobject); ActiveFlare(B3_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(A2_rigibody, A2_renderer); PushObject(A3_rigibody, A3_renderer);
             PushObject(C1_rigibody, C1_renderer); PushObject(C2_rigibody, C2_renderer); PushObject(C3_rigibody, C3_renderer);
-            if (B1.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
+            if (B1.selected_X) return ShowWinnerXMenu(); else return ShowWinnerOMenu();
         }
         //third row
         if ((C1.selected_X && C2.selected_X && C3.selected_X) || (C1.selected_O && C2.selected_O && C3.selected_O))
@@ -95,7 +96,7 @@ public class PlatformController : MonoBehaviour
             ActiveFlare(C1_gameobject); ActiveFlare(C2_gameobject); ActiveFlare(C3_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(A2_rigibody, A2_renderer); PushObject(A3_rigibody, A3_renderer);
             PushObject(B1_rigibody, B1_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(B3_rigibody, B3_renderer);
-            if (C1.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
+            if (C1.selected_X) return ShowWinnerXMenu(); else return ShowWinnerOMenu();
         }
         //first line
         if ((A1.selected_X && B1.selected_X && C1.selected_X) || (A1.selected_O && B1.selected_O && C1.selected_O))
@@ -103,7 +104,7 @@ public class PlatformController : MonoBehaviour
             ActiveFlare(A1_gameobject); ActiveFlare(B1_gameobject); ActiveFlare(C1_gameobject);
             PushObject(A2_rigibody, A2_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(C2_rigibody, C2_renderer);
             PushObject(A3_rigibody, A3_renderer); PushObject(B3_rigibody, B3_renderer); PushObject(C3_rigibody, C3_renderer);
-            if (A1.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
+            if (A1.selected_X) return ShowWinnerXMenu(); else return ShowWinnerOMenu();
         }
         //second line
         if ((A2.selected_X && B2.selected_X && C2.selected_X) || (A2.selected_O && B2.selected_O && C2.selected_O))
@@ -111,7 +112,7 @@ public class PlatformController : MonoBehaviour
             ActiveFlare(A2_gameobject); ActiveFlare(B2_gameobject); ActiveFlare(C2_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(B1_rigibody, B1_renderer); PushObject(C1_rigibody, C1_renderer);
             PushObject(A3_rigibody, A3_renderer); PushObject(B3_rigibody, B3_renderer); PushObject(C3_rigibody, C3_renderer);
-            if (A2.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
+            if (A2.selected_X) return ShowWinnerXMenu(); else return ShowWinnerOMenu();
         }
         //third line
         if ((A3.selected_X && B3.selected_X && C3.selected_X) || (A3.selected_O && B3.selected_O && C3.selected_O))
@@ -119,7 +120,7 @@ public class PlatformController : MonoBehaviour
             ActiveFlare(A3_gameobject); ActiveFlare(B3_gameobject); ActiveFlare(C3_gameobject);
             PushObject(A1_rigibody, A1_renderer); PushObject(B1_rigibody, B1_renderer); PushObject(C1_rigibody, C1_renderer);
             PushObject(A2_rigibody, A2_renderer); PushObject(B2_rigibody, B2_renderer); PushObject(C2_rigibody, C2_renderer);
-            if (A3.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
+            if (A3.selected_X) return ShowWinnerXMenu(); else return ShowWinnerOMenu();
         }
         //one diagonal
         if ((A1.selected_X && B2.selected_X && C3.selected_X) || (A1.selected_O && B2.selected_O && C3.selected_O))
@@ -128,7 +129,7 @@ public class PlatformController : MonoBehaviour
             PushObject(A2_rigibody, A2_renderer); PushObject(A3_rigibody, A3_renderer);
             PushObject(B1_rigibody, B1_renderer); PushObject(B3_rigibody, B3_renderer);
             PushObject(C1_rigibody, C1_renderer); PushObject(C2_rigibody, C2_renderer);
-            if (A1.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
+            if (A1.selected_X) return ShowWinnerXMenu(); else return ShowWinnerOMenu();
         }
         //other diagonal
         if ((A3.selected_X && B2.selected_X && C1.selected_X) || (A3.selected_O && B2.selected_O && C1.selected_O))
@@ -137,18 +138,21 @@ public class PlatformController : MonoBehaviour
             PushObject(A1_rigibody, A1_renderer); PushObject(A2_rigibody, A2_renderer);
             PushObject(B1_rigibody, B1_renderer); PushObject(B3_rigibody, B3_renderer);
             PushObject(C2_rigibody, C2_renderer); PushObject(C3_rigibody, C3_renderer);
-            if (A3.selected_X) ShowWinnerXMenu(); else ShowWinnerOMenu();
+            if (A3.selected_X) return ShowWinnerXMenu(); else return ShowWinnerOMenu();
         }
+        return false;
     }
 
-    private void ShowWinnerXMenu()
+    private bool ShowWinnerXMenu()
     {
         StartCoroutine(ShowWinnerXMenuAfterTime(2f));
+        return true;
     }
 
-    private void ShowWinnerOMenu()
+    private bool ShowWinnerOMenu()
     {
         StartCoroutine(ShowWinnerOMenuAfterTime(2f));
+        return true;
     }
 
     IEnumerator ShowWinnerXMenuAfterTime(float time)
