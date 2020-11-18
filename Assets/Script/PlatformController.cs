@@ -67,7 +67,8 @@ public class PlatformController : MonoBehaviour
     void Update()
     {
         SelectItem();
-        if (!VerifyWinner()){
+        if (!VerifyWinner())
+        {
             VerifyDraw();
         }
     }

@@ -27,7 +27,8 @@ public class MusicClass : MonoBehaviour
         }
     }
 
-    private void Start(){
+    private void Start()
+    {
         if (instance != null)
         {
             sliderVolume.value = instance.musicVolume;
