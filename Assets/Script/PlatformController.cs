@@ -196,37 +196,29 @@ public class PlatformController : MonoBehaviour
     private void SelectItem(GameObject _gameobject, Item item)
     {
         _gameobject.transform.GetComponent<Animator>().SetTrigger("StartScale");
-        AudioSource audioSource;
+
         if (item == Item.O)
-        {
-            _gameobject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("StartPopup");
-            try
-            {
-                audioSource = _gameobject.transform.GetChild(0).GetComponent<AudioSource>();
-                audioSource.volume = MusicClass.Instance.sliderVolume.value;
-                audioSource.Play();
-            }
-            catch (Exception ex)
-            {
-                Debug.Log(ex);
-            }
             _gameobject.transform.GetComponent<SquareController>().selected_O = true;
-        }
         else
-        {
-            _gameobject.transform.GetChild(1).GetComponent<Animator>().SetTrigger("StartPopup");
-            try
-            {
-                audioSource = _gameobject.transform.GetChild(1).GetComponent<AudioSource>();
-                audioSource.volume = MusicClass.Instance.sliderVolume.value;
-                audioSource.Play();
-            }
-            catch (Exception ex)
-            {
-                Debug.Log(ex);
-            }
             _gameobject.transform.GetComponent<SquareController>().selected_X = true;
+
+        PlaySFX(_gameobject, item);
+    }
+
+    private void PlaySFX(GameObject _gameobject, Item item)
+    {
+        AudioSource audioSource = _gameobject.transform.GetChild(item == Item.O ? 0 : 1).GetComponent<AudioSource>();
+        _gameobject.transform.GetChild(item == Item.O ? 0 : 1).GetComponent<Animator>().SetTrigger("StartPopup");
+        try
+        {
+            audioSource.volume = MusicClass.Instance.sliderVolume.value;
         }
+        catch (Exception ex)
+        {
+            Debug.Log(ex);
+            audioSource.volume = 0.5f;
+        }
+        audioSource.Play();
     }
 
     private void SelectItem()
