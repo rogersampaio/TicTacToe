@@ -23,7 +23,7 @@ public class CameraOrientation : MonoBehaviour
     private void AdjustCameraFOV()
     {
         currentScreenOrientation = Screen.orientation;
-        if (currentScreenOrientation == ScreenOrientation.Landscape || currentScreenOrientation == ScreenOrientation.LandscapeLeft || currentScreenOrientation == ScreenOrientation.LandscapeRight)
+        if (currentScreenOrientation == ScreenOrientation.LandscapeLeft || currentScreenOrientation == ScreenOrientation.LandscapeLeft || currentScreenOrientation == ScreenOrientation.LandscapeRight)
             cameraInstance.fieldOfView = 42;
         if (currentScreenOrientation == ScreenOrientation.Portrait || currentScreenOrientation == ScreenOrientation.PortraitUpsideDown)
             cameraInstance.fieldOfView = 70;
