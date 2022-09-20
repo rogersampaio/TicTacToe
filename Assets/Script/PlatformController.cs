@@ -211,7 +211,8 @@ public class PlatformController : MonoBehaviour
         _gameobject.transform.GetChild(item == Item.O ? 0 : 1).GetComponent<Animator>().SetTrigger("StartPopup");
         try
         {
-            audioSource.volume = MusicClass.Instance.sliderVolume.value;
+            if (MusicClass.Instance?.sliderVolume?.value != null)
+                audioSource.volume = MusicClass.Instance.sliderVolume.value;
         }
         catch (Exception ex)
         {

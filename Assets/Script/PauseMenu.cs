@@ -21,7 +21,8 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
-                Pause();
+                if (!drawMenuUI.activeSelf && !winnerOMenu.activeSelf && !winnerXMenu.activeSelf)
+                    Pause();
             }
         }
     }
