@@ -1,0 +1,5 @@
+C:/Projects/TicTacToe/.utmp/RelWithDebInfo/2w4u2c5q/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Projects/TicTacToe/.utmp/RelWithDebInfo/2w4u2c5q/arm64-v8a/CMakeFiles/rebuild_cache.dir
+C:/Projects/TicTacToe/.utmp/RelWithDebInfo/2w4u2c5q/arm64-v8a/FramePacing/CMakeFiles/swappywrapper.dir
+C:/Projects/TicTacToe/.utmp/RelWithDebInfo/2w4u2c5q/arm64-v8a/FramePacing/CMakeFiles/edit_cache.dir
+C:/Projects/TicTacToe/.utmp/RelWithDebInfo/2w4u2c5q/arm64-v8a/FramePacing/CMakeFiles/rebuild_cache.dir
